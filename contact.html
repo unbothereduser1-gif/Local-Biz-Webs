@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Contact Us | Local Biz Webs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +28,12 @@
             --gradient-2: linear-gradient(135deg, #00d4ff 0%, #6366f1 100%);
             --gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-4: linear-gradient(135deg, #10b981 0%, #00d4ff 100%);
+            --safe-area-top: env(safe-area-inset-top, 0);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0);
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -36,6 +42,7 @@
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.6;
+            padding-top: var(--safe-area-top);
         }
 
         /* Navigation */
@@ -48,6 +55,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
             transition: all 0.3s ease;
+            padding-top: var(--safe-area-top);
         }
 
         nav.scrolled {
@@ -58,7 +66,7 @@
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 1.2rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -66,7 +74,7 @@
 
         .logo {
             font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
             background: var(--gradient-2);
             -webkit-background-clip: text;
@@ -89,6 +97,7 @@
             font-size: 0.95rem;
             transition: color 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         .nav-links a::after {
@@ -118,6 +127,10 @@
             border-radius: 50px;
             font-weight: 600;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .cta-nav:hover {
@@ -132,11 +145,33 @@
             color: var(--text-white);
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
         }
 
         /* Page Header */
         .page-header {
-            padding: 12rem 2rem 6rem;
+            padding: 12rem 1.5rem 6rem;
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -177,12 +212,8 @@
         }
 
         @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(30px, -30px) scale(1.1);
-            }
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
         }
 
         .header-content {
@@ -206,14 +237,8 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .page-header h1 {
@@ -242,7 +267,7 @@
 
         /* Contact Section */
         .contact-section {
-            padding: 6rem 2rem 8rem;
+            padding: 6rem 1.5rem 4rem;
         }
 
         .contact-container {
@@ -313,6 +338,12 @@
             font-family: 'DM Sans', sans-serif;
             font-size: 1rem;
             transition: all 0.3s ease;
+            min-height: 48px;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
         }
 
         .form-group input:focus,
@@ -322,11 +353,6 @@
             border-color: var(--accent-cyan);
             background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
         }
 
         .form-group select {
@@ -350,6 +376,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            min-height: 48px;
         }
 
         .submit-btn:hover {
@@ -383,6 +410,12 @@
             box-shadow: 0 20px 50px rgba(0, 212, 255, 0.15);
         }
 
+        @media (hover: none) {
+            .info-card:hover {
+                transform: none;
+            }
+        }
+
         .info-card h3 {
             font-family: 'Syne', sans-serif;
             font-size: 1.8rem;
@@ -392,7 +425,7 @@
 
         .info-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 1.5rem;
             padding: 1.5rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -461,8 +494,10 @@
         }
 
         .social-link {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -483,7 +518,7 @@
 
         /* Map Section */
         .map-section {
-            padding: 0 2rem 8rem;
+            padding: 0 1.5rem 4rem;
         }
 
         .map-container {
@@ -534,11 +569,13 @@
             color: var(--text-gray);
             position: relative;
             z-index: 1;
+            text-align: center;
+            padding: 0 1rem;
         }
 
         /* Hours Section */
         .hours-section {
-            padding: 8rem 2rem;
+            padding: 6rem 1.5rem;
             background: var(--primary-navy);
         }
 
@@ -603,6 +640,7 @@
             justify-content: space-between;
             padding: 1rem 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 1rem;
         }
 
         .hours-list li:last-child {
@@ -642,7 +680,8 @@
         footer {
             background: var(--primary-dark);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 4rem 2rem 2rem;
+            padding: 4rem 1.5rem 2rem;
+            padding-bottom: calc(2rem + var(--safe-area-bottom));
         }
 
         .footer-container {
@@ -677,8 +716,8 @@
         }
 
         .footer-social-links a {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.05);
             display: flex;
@@ -713,6 +752,8 @@
             color: var(--text-gray);
             text-decoration: none;
             transition: color 0.3s ease;
+            display: inline-block;
+            padding: 0.25rem 0;
         }
 
         .footer-column ul li a:hover {
@@ -759,33 +800,177 @@
         }
 
         @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(320px, 85vw);
+                height: 100vh;
+                height: 100dvh;
+                background: rgba(10, 14, 39, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                padding: calc(80px + var(--safe-area-top)) 2rem 2rem;
+                gap: 0;
+                z-index: 999;
+                border-left: 1px solid rgba(0, 212, 255, 0.1);
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 0;
+                font-size: 1.1rem;
+            }
+
+            .nav-links .cta-nav {
+                margin-top: 1rem;
+                justify-content: center;
             }
 
             .mobile-menu-btn {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .nav-overlay {
                 display: block;
+                pointer-events: none;
+            }
+
+            .nav-overlay.active {
+                pointer-events: auto;
+            }
+
+            .page-header {
+                padding: 8rem 1rem 4rem;
             }
 
             .page-header h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                line-height: 1.2;
             }
 
-            .section-header h2 {
-                font-size: 2.5rem;
+            .page-header p {
+                font-size: 1.1rem;
+            }
+
+            .contact-section {
+                padding: 4rem 1rem 3rem;
+            }
+
+            .contact-form-wrapper {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .form-header h2 {
+                font-size: 2rem;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
             }
 
-            .contact-form-wrapper {
-                padding: 2.5rem 2rem;
+            .info-card,
+            .social-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .info-item {
+                flex-wrap: wrap;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .hours-section {
+                padding: 4rem 1rem;
+            }
+
+            .hours-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .hours-list li {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .quick-response-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .response-time {
+                font-size: 2.5rem;
+            }
+
+            .map-section {
+                padding: 0 1rem 3rem;
+            }
+
+            .map-placeholder {
+                height: 350px;
+            }
+
+            .map-text {
+                font-size: 1.1rem;
             }
 
             .footer-container {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 2.5rem;
+                text-align: center;
+            }
+
+            .footer-brand {
+                text-align: center;
+            }
+
+            .footer-social-links {
+                justify-content: center;
+            }
+
+            .footer-column ul {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .header-badge {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+            }
+
+            .map-placeholder {
+                height: 280px;
+            }
+
+            .map-icon {
+                font-size: 3.5rem;
             }
         }
 
@@ -800,14 +985,19 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        body, html {
+            max-width: 100vw;
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+
     <nav id="navbar">
         <div class="nav-container">
             <div class="logo">Local Biz Webs</div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="services.html">Services</a></li>
@@ -815,17 +1005,15 @@
                 <li><a href="process.html">Process</a></li>
                 <li><a href="contact.html" class="cta-nav active">Get Started</a></li>
             </ul>
-            <button class="mobile-menu-btn">☰</button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">☰</button>
         </div>
     </nav>
 
-    <!-- Page Header -->
     <section class="page-header">
         <div class="header-background">
             <div class="gradient-orb orb-1"></div>
             <div class="gradient-orb orb-2"></div>
         </div>
-        
         <div class="header-content">
             <span class="header-badge">💬 Let's Talk</span>
             <h1>Get Your <span class="gradient-text">Free Homepage</span></h1>
@@ -833,10 +1021,8 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="contact-section reveal">
         <div class="contact-container">
-            <!-- Contact Form -->
             <div class="contact-form-wrapper">
                 <div class="form-header">
                     <h2>Start Your Project</h2>
@@ -862,7 +1048,7 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+1 (234) 567-890">
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (281) 941-8334">
                         </div>
                     </div>
 
@@ -888,42 +1074,36 @@
                     </div>
 
                     <button type="submit" class="submit-btn">Send Message 🚀</button>
-                    
                     <div class="success-message" id="successMessage">
                         ✓ Thank you! We've received your message and will respond within 24 hours.
                     </div>
                 </form>
             </div>
 
-            <!-- Contact Info -->
             <div class="contact-info">
                 <div class="info-card">
                     <h3>Contact Information</h3>
-                    
                     <div class="info-item">
                         <div class="info-icon">📧</div>
                         <div class="info-content">
                             <h4>Email</h4>
-                            <p><a href="mailto:info@localbizwebs.com">info@localbizwebs.com</a></p>
+                            <p><a href="mailto:zaid@localbizwebs.co.site">zaid@localbizwebs.co.site</a></p>
                         </div>
                     </div>
-
                     <div class="info-item">
                         <div class="info-icon">📞</div>
                         <div class="info-content">
                             <h4>Phone</h4>
-                            <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
+                            <p><a href="tel:+12819418334">+1 (281) 941-8334</a></p>
                         </div>
                     </div>
-
                     <div class="info-item">
                         <div class="info-icon">📍</div>
                         <div class="info-content">
-                            <h4>Office</h4>
-                            <p>123 Business Street<br>Suite 100<br>New York, NY 10001</p>
+                            <h4>Service Area</h4>
+                            <p>Proudly serving local businesses. We work remotely and in-person based on your needs.</p>
                         </div>
                     </div>
-
                     <div class="info-item">
                         <div class="info-icon">⏰</div>
                         <div class="info-content">
@@ -947,17 +1127,15 @@
         </div>
     </section>
 
-    <!-- Map Section -->
     <section class="map-section reveal">
         <div class="map-container">
             <div class="map-placeholder">
                 <div class="map-icon">📍</div>
-                <div class="map-text">123 Business Street, Suite 100, New York, NY 10001</div>
+                <div class="map-text">Serving local businesses. Get in touch to discuss your project.</div>
             </div>
         </div>
     </section>
 
-    <!-- Hours Section -->
     <section class="hours-section reveal">
         <div class="section-header">
             <span class="section-badge">Availability</span>
@@ -1003,13 +1181,12 @@
 
             <div class="hours-card quick-response-card">
                 <h3>⚡ Quick Response Guarantee</h3>
-                <div class="response-time">< 24 Hours</div>
+                <div class="response-time">&lt; 24 Hours</div>
                 <p style="color: var(--text-gray); line-height: 1.8;">We respond to all inquiries within 24 hours during business days. For free homepage requests, we'll schedule your consultation call within 48 hours.</p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
@@ -1022,7 +1199,6 @@
                     <a href="#" aria-label="LinkedIn">💼</a>
                 </div>
             </div>
-
             <div class="footer-column">
                 <h4>Company</h4>
                 <ul>
@@ -1032,7 +1208,6 @@
                     <li><a href="process.html">Our Process</a></li>
                 </ul>
             </div>
-
             <div class="footer-column">
                 <h4>Resources</h4>
                 <ul>
@@ -1042,79 +1217,84 @@
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
-
             <div class="footer-column">
                 <h4>Contact</h4>
                 <ul>
                     <li><a href="contact.html">Get in Touch</a></li>
-                    <li><a href="mailto:info@localbizwebs.com">info@localbizwebs.com</a></li>
-                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li><a href="mailto:zaid@localbizwebs.co.site">zaid@localbizwebs.co.site</a></li>
+                    <li><a href="tel:+12819418334">+1 (281) 941-8334</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>&copy; 2026 Local Biz Webs. All rights reserved. Built with ❤️ for local businesses.</p>
         </div>
     </footer>
 
     <script>
-        // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
-        // Contact form submission
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openMenu() {
+            navLinks.classList.add('active');
+            navOverlay.classList.add('active');
+            mobileMenuBtn.classList.add('active');
+            mobileMenuBtn.textContent = '✕';
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            mobileMenuBtn.setAttribute('aria-label', 'Close menu');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            navLinks.classList.remove('active');
+            navOverlay.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+            mobileMenuBtn.textContent = '☰';
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            mobileMenuBtn.setAttribute('aria-label', 'Toggle menu');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.contains('active') ? closeMenu() : openMenu();
+        });
+
+        navOverlay.addEventListener('click', closeMenu);
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) closeMenu();
+        });
+
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Show success message
             successMessage.classList.add('show');
-            
-            // Reset form
             contactForm.reset();
-            
-            // Hide success message after 5 seconds
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 5000);
-            
-            // In a real implementation, you would send the form data to your server here
-            console.log('Form submitted!');
+            setTimeout(() => successMessage.classList.remove('show'), 5000);
         });
 
-        // Scroll reveal animation
         const reveals = document.querySelectorAll('.reveal');
-        
         const revealOnScroll = () => {
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add('active');
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
                 }
             });
         };
-
         window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll(); // Initial check
-
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
+        revealOnScroll();
     </script>
 </body>
 </html>
